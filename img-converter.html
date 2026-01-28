@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<title>file</title>
+      <style>
+	  *{
+	  margin:0px;
+	  padding:0px;
+	  
+	  }
+       
+		.my-div {
+		height:50px;
+   // background-color: #f5f5f5; /* For visibility */
+    padding: 10px; /* Optional: Add some padding for content */
+    margin: 5px; /* Applies 50px margin to all four sides */
+    border: 3px dashed  #fcba03; /* Optional: Add a border for visual separation */
+	border-radius: 25px;
+	//color:grey;
+	box-shadow: 0 0 12px rgba(0,43,255,0.7) inset;
+  border: 1px solid rgba(255,255,255,1);
+  color: rgba(0,0,0,1);
+  text-align:center;
+  text-transform: uppercase;
+  font-size: 22px;
+}
+ 
+
+#one{
+text-align:center;
+text-transform: uppercase;
+font-size: 25px;
+ 
+}
+ button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: rgba(0, 43, 255, 0.5);
+ 
+  border: 2px solid white;
+  border-radius: 25px;
+}
+
+#cpanel {
+    position: absolute;
+    top: 100px;
+    right: 80px;
+    z-index: 1;
+   // background-color: #e7e7e7;
+   // border: 2px solid #2572ff;
+    /* padding: 5px; */
+   // border-radius: 91px;
+ //  height:200px;
+  // width:200px;
+}
+
+#myImg{
+margin-left:20px;
+}
+      </style>
+</head>
+<body>
+
+ 
+  <div id="one">Avif,webp,png,jpg to png or jpg convert
+  
+  
+  
+  </div>
+ 
+ 
+
+  
+
+ <div class="my-div" ondrop="dropHandler(event)"   ondragover="dragoverHandler(event)">
+        image Drop Zone.
+		
+    </div>
+	 
+	
+	 
+	
+	<img id="myImg" src="" >
+	<canvas id="abc" width="0" height="0" style="border:1px solid #000000; ">
+Your browser does not support the HTML canvas tag.
+</canvas>
+
+<div id ="cpanel">
+<button onclick="save()">save</button><br>
+	<label for="fname" > ext </label>
+<select id="numberSelect" name="numberSelect" contenteditable="true">
+  <option value="1" contenteditable="true">jpg</option>
+  <option value="2" contenteditable="true">png</option>
+  
+</select> <br>
+ 
+ 
+	
+	 
+	 </div>
+</body>
+<script>
+//document.getElementById("my-div").style.borderColor  = "blue";
+let fileNames = '';
+//var  nameWithoutExtension = '';
+var hi;
+var hw;
+const newCanvas = document.createElement('canvas');
+newCanvas.id = 'dynamicCanvas';
+    
+	const canvas = document.getElementById("dynamicCanvas");
+const ctx = newCanvas.getContext('2d');
+const mageImg = new Image();
+mageImg.src = "2022092822.jpg";
+
+
+const ff = document.getElementById("abc");
+const ctx_a = abc.getContext("2d");
+var image_l = document.getElementById("myImg");
+
+
+  const newImage = document.createElement('img');
+    newImage.src = ' '; // Replace with your image path
+    newImage.alt = 'Description of the image';
+
+
+
+
+function dragoverHandler(event) {
+  event.preventDefault();
+}
+function dropHandler(event) {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+      if (files.length > 0) {
+      document.getElementById("myImg").src = URL.createObjectURL(files[0]);
+	  const aa = document.getElementById("myImg").src;
+	  fileName = files[0].name;
+	   
+	  newImage.src = URL.createObjectURL(files[0]);
+	 
+	  
+	  image_l.onload = function () {
+    hi = this.height;
+    hw = this.width;
+	
+	newCanvas.width = hw;
+    newCanvas.height = hi;
+	//alert(hw);
+	//var img = document.getElementById("myImg");
+	//ctx.drawImage(img, 0, 0,hw,hi);
+	ctx.drawImage(newImage, 0, 0,hw,hi);
+	 
+	// ctx.rect(0, 0, 150, 100);
+//ctx.fillStyle = "red";
+//ctx.fill();
+
+	}
+	  
+	  //mageImg.src = URL.createObjectURL(files[0]);
+     // alert(fileName);
+	 // ctx.filter = 'grayscale(100%)';
+		//ctx.drawImage(aa, 10,10,512,512);
+		//var b = document.getElementById("myImg")
+		//ctx.drawImage(b, 0, 0);
+		
+	 
+	  
+	  
+      }}
+
+function save(){
+    let downloadLink = document.createElement('a');
+	//nameWithoutExtension = filename.split('.').slice(0, -1).join('.');
+	let exten = document.getElementById('numberSelect').options[document.getElementById('numberSelect').selectedIndex].text;
+    downloadLink.setAttribute('download', fileName +'.'+ exten);
+	//downloadLink.setAttribute('download', fileName+'CanvasAsImage.png');
+     
+   newCanvas.toBlob(function(blob) {
+      let url = URL.createObjectURL(blob);
+      downloadLink.setAttribute('href', url);
+      downloadLink.click();
+    });
+}
+
+
+ 
+</script>
+
+
+</html>
